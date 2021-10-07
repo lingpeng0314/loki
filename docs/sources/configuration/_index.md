@@ -315,8 +315,9 @@ The query_frontend_config configures the Loki query-frontend.
 
 # How often to resolve the scheduler-address, in order to look for new
 # query-scheduler instances.
+# Also used to determine how often to poll the scheduler-ring for addresses if configured.
 # CLI flag: -frontend.scheduler-dns-lookup-period
-[scheduler_dns_lookup_period: <duration> | default = 10s]
+[scheduler_dns_lookup_period: <duration> | default = 3s]
 
 # Number of concurrent workers forwarding queries to single query-scheduler.
 # CLI flag: -frontend.scheduler-worker-concurrency
@@ -776,9 +777,10 @@ The `frontend_worker_config` configures the worker - running within the Loki que
 # CLI flag: -querier.worker-parallelism
 [parallelism: <int> | default = 10]
 
-# How often to query DNS.
+# How often to query the frontend_address DNS to resolve frontend addresses
+# Also used to determine how often to poll the scheduler-ring for addresses if configured.
 # CLI flag: -querier.dns-lookup-period
-[dns_lookup_duration: <duration> | default = 10s]
+[dns_lookup_duration: <duration> | default = 3s]
 
 # The CLI flags prefix for this block config is: querier.frontend-client
 [grpc_client_config: <grpc_client_config>]
